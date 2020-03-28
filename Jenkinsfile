@@ -1,22 +1,14 @@
 pipeline {
-  agent none
-  stages {
-    stage('Build') {
-      agent {
-        docker {
-          image 'python:3.5.1'
-        }
-
-      }
-      steps {
-        sh 'python --version'
-        echo 'In Build Stage'
-      }
+  agent {
+    docker {
+      image 'ubuntu:trusty'
     }
 
+  }
+  stages {
     stage('Test') {
       parallel {
-        stage('Py3 Maria') {
+        stage('Py') {
           agent {
             docker {
               image 'ubuntu:trusty'
@@ -52,19 +44,6 @@ pipeline {
           }
         }
 
-      }
-    }
-
-    stage('Deploy') {
-      agent {
-        docker {
-          image 'python:3.5.1'
-        }
-
-      }
-      steps {
-        sh 'python --version'
-        echo 'In Deploy Stage'
       }
     }
 
