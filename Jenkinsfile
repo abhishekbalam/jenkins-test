@@ -15,23 +15,12 @@ pipeline {
 
     stage('Test') {
       parallel {
-        stage('Test') {
-          steps {
-            sh 'python --version'
-            echo 'In Test Stage'
-          }
-        }
-
         stage('Py3 Maria') {
           agent {
             docker {
               image 'ubuntu:trusty'
             }
 
-          }
-          environment {
-            DB = 'mariadb'
-            PYTHON = '3'
           }
           steps {
             sh 'echo "py3"'
@@ -45,10 +34,6 @@ pipeline {
             }
 
           }
-          environment {
-            DB = 'postgres'
-            PYTHON = '3'
-          }
           steps {
             sh 'echo "test"'
           }
@@ -60,10 +45,6 @@ pipeline {
               image 'ubuntu:trusty'
             }
 
-          }
-          environment {
-            DB = 'mariadb'
-            PYTHON = '2'
           }
           steps {
             sh 'echo "yeah"'
