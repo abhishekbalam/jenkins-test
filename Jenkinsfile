@@ -2,6 +2,12 @@ pipeline {
   agent none
   stages {
     stage('Build') {
+      agent {
+        docker {
+          image 'python:3.5.1'
+        }
+
+      }
       steps {
         sh 'python --version'
         echo 'In Build Stage'
@@ -50,6 +56,12 @@ pipeline {
     }
 
     stage('Deploy') {
+      agent {
+        docker {
+          image 'python:3.5.1'
+        }
+
+      }
       steps {
         sh 'python --version'
         echo 'In Deploy Stage'
