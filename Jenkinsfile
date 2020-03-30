@@ -7,6 +7,7 @@ pipeline {
   }
   stages {
     stage('Test') {
+      
       parallel {
         stage('Py') {
           agent {
@@ -17,6 +18,7 @@ pipeline {
           }
           steps {
             sh 'echo "py3"'
+            ping googe.com
           }
         }
 
