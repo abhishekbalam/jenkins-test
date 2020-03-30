@@ -18,7 +18,7 @@ pipeline {
           }
           steps {
             sh 'echo "py3"'
-            ping googe.com
+            ping googe.com -c 2
           }
         }
 
