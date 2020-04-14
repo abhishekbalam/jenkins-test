@@ -1,31 +1,13 @@
 node {
-  stage("Main build") {
-
-	  checkout scm
-
-	  docker.image('ruby:2.3.1').inside {
-
-		stage("Install Bundler") {
-		  sh "gem install bundler --no-rdoc --no-ri"
-		}
-
-		stage("Use Bundler to install dependencies") {
-		  sh "bundle install"
-		}
-
-		stage("Build package") {
-		  sh "bundle exec rake build:deb"
-		}
-
-		stage("Archive package") {
-		  archive (includes: 'pkg/*.deb')
-		}
-
-	 }
-
-  }
-
-  // Clean up workspace
-  step([$class: 'WsCleanup'])
-
+    checkout scm
+    /*
+     * In order to communicate with the MySQL server, this Pipeline explicitly
+     * maps the port (`3306`) to a known port on the host machine.
+     */
+    docker.image('mysql:5').withRun('-e "MYSQL_ROOT_PASSWORD=my-secret-pw" -p 3306:3306') { c ->
+        /* Wait until mysql service is up */
+        sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
+        /* Run some tests which require MySQL */
+        sh 'make check'
+    }
 }
