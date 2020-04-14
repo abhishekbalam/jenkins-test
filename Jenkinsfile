@@ -5,6 +5,7 @@ node {
             /* Wait until mysql service is up */
             sh 'while ! mysqladmin ping -hdb --silent; do sleep 1; done'
             sh 'mysql -hdb -P 3306 -u root -pmy-secret-pw'
+            sh 'echo "yolo"'
         }
         docker.image('ubuntu:trusty').inside("--link ${c.id}:db") {
             /*
