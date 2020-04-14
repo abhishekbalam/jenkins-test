@@ -11,7 +11,7 @@ node {
              * available on the host name `db`
              */
             sh 'echo "hello"'
-            mysql
+            sh 'mysql'
         }
     }
 }
