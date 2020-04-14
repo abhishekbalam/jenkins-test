@@ -12,6 +12,7 @@ node {
              * available on the host name `db`
              */
             sh 'echo "hello"'
+            sh 'apt install mysql-server'
             sh 'mysql'
         }
     }
