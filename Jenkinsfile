@@ -1,8 +1,10 @@
 pipeline {
   agent {
-    docker.image('ubuntu:trusty').inside{
-      apt update
-      apt upgrade
+    node {
+      docker.image('ubuntu:trusty').inside{
+        apt update
+        apt upgrade
+      }
     }
   }
   stages {
