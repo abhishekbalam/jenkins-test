@@ -6,10 +6,10 @@ node {
             sh 'lsrelease'
             sh 'apt update'
         }
-        // docker.image('ubuntu:trusty').inside("--link ${c.id}:db") {
-        //     sh 'echo "hello"'
-        //     sh 'whoami'
-        //     sh 'mysql -hdb'
-        // }
+        docker.image('ubuntu:trusty').inside("--link ${c.id}:db") {
+            sh 'echo "hello"'
+            sh 'whoami'
+            sh 'mysql -hdb'
+        }
     }
 }
