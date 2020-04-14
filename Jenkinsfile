@@ -13,7 +13,8 @@ node {
              * available on the host name `db`
              */
             sh 'echo "hello"'
-            sh 'sudo apt install mysql-server'
+            // sh 'sudo apt install mysql-server'
+            sh 'whoami'
             sh 'mysql -hdb'
         }
     }
