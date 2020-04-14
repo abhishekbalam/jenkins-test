@@ -1,7 +1,7 @@
 pipeline {
   agent {
     node {
-      docker.image('ubuntu:trusty').inside{
+      docker.image('ubuntu:trusty').inside{ c->
         apt update
         apt upgrade
       }
