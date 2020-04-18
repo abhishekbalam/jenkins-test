@@ -13,7 +13,7 @@ node {
         	sh 'mkdir ~/frappe-bench/sites/test_site_producer'
         	sh 'cp ~/site_configs/producer_db/mariadb.json ~/frappe-bench/sites/test_site_producer/site_config.json'
 
-        	sh 'mysql -uroot -proot -h db -e "SET GLOBAL character_set_server = 'utf8mb4'";'
+        	sh 'mysql -uroot -proot -h db -e "SET GLOBAL character_set_server = \'utf8mb4\'";'
         }
     }
 }
