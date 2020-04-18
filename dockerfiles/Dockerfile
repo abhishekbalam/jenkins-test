@@ -43,7 +43,10 @@ RUN wget "https://raw.githubusercontent.com/abhishekbalam/frappe/develop/.travis
 	wget "https://raw.githubusercontent.com/abhishekbalam/frappe/develop/.travis/producer_db/postgres.json" -P /home/frappe/site_configs/producer_db/
 
 
-RUN pip3 install frappe-bench
+# Bench Install
+RUN git clone https://github.com/frappe/bench --depth 1
+RUN pip3 install -e ./bench
+
 RUN (echo "export PATH='/home/frappe/.local/bin:$PATH'"; \
 	echo "export LC_ALL=C.UTF-8"; \
 	echo "export LANG=C.UTF-8";) >> /home/frappe/.bashrc

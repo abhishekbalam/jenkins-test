@@ -2,6 +2,7 @@ node {
 	// checkout scm
 	def frappe = docker.image('abhishekbalam/test1:latest')
 	frappe.inside() {
+		sh 'echo $PATH'
 		sh 'bash -c bench init frappe-bench --skip-assets --python $(which python3)'
 		sh 'mkdir ~/frappe-bench/sites/test_site'
 
