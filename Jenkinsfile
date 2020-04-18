@@ -1,10 +1,11 @@
 node {
 	// checkout scm
-	docker.image('mariadb').withRun('-e "MARIADB_ROOT_PASSWORD=my-secret-pw" --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --character-set-client-handshake=FALSE default-character-set=utf8mb4') { c ->
+	docker.image('mariadb').withRun('-e "MARIADB_ROOT_PASSWORD=my-secret-pw"') { c ->
 		docker.image('mariadb').inside("--link ${c.id}:db") {
 			/* Wait until mysql service is up */
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
-			sh 
+			sh 'mysql -u root -e "SET GLOBAL character_set_server = \'utf8mb4\'"';
+			sh 'mysql -u root -e "SET GLOBAL collation_server = \'utf8mb4_unicode_ci\'"';
 		}
 		docker.image('abhishekbalam/test1:latest').inside("--link ${c.id}:db") {
 			sh 'bench init frappe-bench --skip-assets --python $(which python3)'
