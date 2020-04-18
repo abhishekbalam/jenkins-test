@@ -2,14 +2,14 @@ node {
 	// checkout scm
 	def frappe = docker.image('abhishekbalam/test1:latest')
 	frappe.inside() {
-		sh 'bench init frappe-bench --skip-assets --python $(which python3)'
-		sh 'mkdir ~/frappe-bench/sites/test_site'
+		bash 'bench init frappe-bench --skip-assets --python $(which python3)'
+		bash 'mkdir ~/frappe-bench/sites/test_site'
 
-		sh 'cp ~/site_configs/consumer_db/mariadb.json ~/frappe-bench/sites/test_site/site_config.json'
-		sh 'mkdir ~/frappe-bench/sites/test_site_producer'
-		sh 'cp ~/site_configs/producer_db/mariadb.json ~/frappe-bench/sites/test_site_producer/site_config.json'
+		bash 'cp ~/site_configs/consumer_db/mariadb.json ~/frappe-bench/sites/test_site/site_config.json'
+		bash 'mkdir ~/frappe-bench/sites/test_site_producer'
+		bash 'cp ~/site_configs/producer_db/mariadb.json ~/frappe-bench/sites/test_site_producer/site_config.json'
 
-		sh 'mysql -uroot -proot -h db -e "CREATE DATABASE test_frappe_consumer"';
+		bash 'mysql -uroot -proot -h db -e "CREATE DATABASE test_frappe_consumer"';
 	}
 	docker.image('mariadb:10.3').withRun('-e MARIADB_ROOT_PASSWORD=root') { c ->
 		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
