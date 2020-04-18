@@ -2,6 +2,10 @@ node {
 	// checkout scm
 	def frappe = docker.image('abhishekbalam/test1:latest')
 	frappe.inside() {
+		sh 'export PATH="/home/frappe/.local/bin:$PATH"'
+		sh 'export LC_ALL=C.UTF-8'
+		sh 'export LANG=C.UTF-8'
+		
 		sh 'echo $PATH'
 		sh 'bash -c bench init frappe-bench --skip-assets --python $(which python3)'
 		sh 'mkdir ~/frappe-bench/sites/test_site'
