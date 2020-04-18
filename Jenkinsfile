@@ -1,7 +1,7 @@
 node {
 	// checkout scm
-	docker.image('mariadb').withRun('-e "MARIADB_ROOT_PASSWORD=my-secret-pw"') { c ->
-		docker.image('mariadb').inside("--link ${c.id}:db") {
+	docker.image('mariadb:10.3').withRun('-e "MARIADB_ROOT_PASSWORD=my-secret-pw"') { c ->
+		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
 			/* Wait until mysql service is up */
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
 			sh 'mysql -u root -e "SET GLOBAL character_set_server = \'utf8mb4\'"';
