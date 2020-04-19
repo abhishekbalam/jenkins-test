@@ -1,8 +1,8 @@
 node {
 	// checkout scm
-	//def frappe = docker.image('abhishekbalam/test1:latest')
+	def frappe = docker.image('abhishekbalam/test1:latest')
 
-	def frappe = docker.build('test-frappe')
+	//def frappe = docker.build('test-frappe')
 	frappe.inside() {
 		sh 'bench init frappe-bench --skip-assets --python $(which python3)'
 		sh 'mkdir ~/frappe-bench/sites/test_site'
