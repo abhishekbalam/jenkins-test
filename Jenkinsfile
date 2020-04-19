@@ -1,23 +1,18 @@
 node {
 	// checkout scm
-	def frappe = docker.image('abhishekbalam/test1:latest')
-	sh 'docker run abhishekbalam/test1:latest /bin/bash -c bench init frappe-bench --skip-assets --python $(which python3)'
-	// frappe.inside() {
-	// 	sh 'export PATH="/home/frappe/.local/bin:$PATH"'
-	// 	sh 'export LC_ALL=C.UTF-8'
-	// 	sh 'export LANG=C.UTF-8'
-	// 	sh 'whoami'
-	// 	sh 'echo $PATH'
-	// 	sh 'bash -c bench init frappe-bench --skip-assets --python $(which python3)'
-	// 	sh 'mkdir ~/frappe-bench/sites/test_site'
+	//def frappe = docker.image('abhishekbalam/test1:latest')
 
-	// 	sh 'cp ~/site_configs/consumer_db/mariadb.json ~/frappe-bench/sites/test_site/site_config.json'
-	// 	sh 'mkdir ~/frappe-bench/sites/test_site_producer'
-	// 	sh 'cp ~/site_configs/producer_db/mariadb.json ~/frappe-bench/sites/test_site_producer/site_config.json'
+	def frappe = docker.image('test-frappe', './dockerfiles')
+	frappe.inside() {
+		sh 'bench init frappe-bench --skip-assets --python $(which python3)'
+		sh 'mkdir ~/frappe-bench/sites/test_site'
 
-	// 	sh 'mysql -uroot -proot -h db -e "CREATE DATABASE test_frappe_consumer"';
-	// }
+		sh 'cp ~/site_configs/consumer_db/mariadb.json ~/frappe-bench/sites/test_site/site_config.json'
+		sh 'mkdir ~/frappe-bench/sites/test_site_producer'
+		sh 'cp ~/site_configs/producer_db/mariadb.json ~/frappe-bench/sites/test_site_producer/site_config.json'
 
+		sh 'mysql -uroot -proot -h db -e "CREATE DATABASE test_frappe_consumer"';
+	}
 	docker.image('mariadb:10.3').withRun('-e MARIADB_ROOT_PASSWORD=root') { c ->
 		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'

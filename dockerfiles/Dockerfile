@@ -12,6 +12,8 @@ RUN apt update && apt -y upgrade && \
 	software-properties-common redis-server libcups2-dev \
 	mysql-client postgresql-client
 
+RUN apt -y install locales
+
 # Nonroot Sudo User
 RUN adduser --disabled-password --gecos '' frappe
 RUN adduser frappe sudo
@@ -31,6 +33,10 @@ RUN chmod o+x /usr/local/bin/wkhtmltopdf
 # Coverage
 RUN pip3 install coverage==4.5.4 python-coveralls
 
+# Locales
+ENV LC_ALL=C.UTF-8 
+ENV LANG=C.UTF-8
+
 USER frappe
 
 WORKDIR /home/frappe
@@ -47,11 +53,7 @@ RUN wget "https://raw.githubusercontent.com/abhishekbalam/frappe/develop/.travis
 RUN git clone https://github.com/frappe/bench --depth 1
 RUN pip3 install -e ./bench
 
-RUN (echo "export PATH='/home/frappe/.local/bin:$PATH'"; \
-	echo "export LC_ALL=C.UTF-8"; \
-	echo "export LANG=C.UTF-8";) >> /home/frappe/.bashrc
-
-WORKDIR /home/frappe/frappe-bench
+RUN sudo cp /home/frappe/.local/bin/bench /usr/bin
 
 # Bench Init
 # RUN bench init frappe-bench --skip-assets --python $(which python3) 
