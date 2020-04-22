@@ -3,6 +3,8 @@ node {
 	docker.image('mariadb:10.3').withRun('-e "MYSQL_ROOT_PASSWORD=root"') { c ->
 		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
 			sh 'echo "here1"'
+			sh 'pwd;ls'
+			sh 'whoami'
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
 			sh 'echo "here2"'
 			
