@@ -5,7 +5,7 @@ node {
 			sh 'echo "here1"'
 			sh 'pwd;ls'
 			sh 'whoami'
-			sh 'mysql -uroot -proot -hdb -e "SHOW DATABASES"'
+			sh 'mysql -uroot -proot -h0.0.0.0 -e "SHOW DATABASES"'
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
 			sh 'echo "here2"'
 			
