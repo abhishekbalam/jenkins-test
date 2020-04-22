@@ -33,12 +33,12 @@ node {
             /* Wait until mysql service is up */
             sh 'while ! mysqladmin ping -hdb --silent; do sleep 1; done'
         }
-        docker.image('ubuntu:trusty').inside("--link ${c.id}:db --user root") {
+        docker.image('abhishekbalam/test1:latest').inside("--link ${c.id}:db --user frappe") {
             /*
              * Run some tests which require MySQL, and assume that it is
              * available on the host name `db`
              */
-            sh 'apt update;apt -y install mysql-client'
+            // sh 'apt update;apt -y install mysql-client'
             sh 'mysql -uroot -proot -hdb -e "SHOW DATABASES;"'
         }
     }
