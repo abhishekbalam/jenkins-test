@@ -11,7 +11,7 @@ node {
              * available on the host name `db`
              */
             sh 'apt update && apt -y install mysql-client'
-            sh 'mysql -uroot -proot -e "show databases;"'
+            sh 'mysql -uroot -proot -hdb -e "show databases;"'
         }
     }
 }
