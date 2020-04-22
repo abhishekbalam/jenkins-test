@@ -10,7 +10,7 @@ node {
              * Run some tests which require MySQL, and assume that it is
              * available on the host name `db`
              */
-            sh 'apt update && apt install mysql-client'
+            sh 'apt update && apt -y install mysql-client'
             sh 'mysql -uroot -proot -e "show databases;"'
         }
     }
