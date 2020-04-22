@@ -1,9 +1,11 @@
 node {
 	checkout scm
 	docker.image('mariadb:10.3').withRun('-e "MYSQL_ROOT_PASSWORD=root"') { c ->
-		docker.image('mariadb:10.3').inside("--link ${c.id}:db -u 501:501") {
-			sh 'echo "here"'
+		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
+			sh 'echo "here1"'
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'
+			sh 'echo "here2"'
+			
 			//sh 'mysql -uroot -proot -h0.0.0.0 -e "SET GLOBAL character_set_server = \'utf8mb4\'"';
 			//sh 'mysql -uroot -proot -h0.0.0.0 -e "SET GLOBAL collation_server = \'utf8mb4_unicode_ci\'"';
 		}
