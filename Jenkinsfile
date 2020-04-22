@@ -39,7 +39,7 @@ node {
              * available on the host name `db`
              */
             sh 'apt update;apt -y install mysql-client'
-            sh 'apt mysql -uroot -proot -hdb -e "SHOW DATABASES;"'
+            sh 'mysql -uroot -proot -hdb -e "SHOW DATABASES;"'
         }
     }
 }
