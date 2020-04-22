@@ -34,7 +34,7 @@ node {
             sh 'while ! mysqladmin ping -hdb --silent; do sleep 1; done'
         }
         docker.image('abhishekbalam/test1:latest').inside("--link ${c.id}:db --user frappe") {
-			sh 'bench init frappe-bench --skip-assets --python $(which python3)'
+			// sh 'bench init frappe-bench --skip-assets --python $(which python3)'
 			sh 'ls'
 			sh 'pwd'
 			sh 
