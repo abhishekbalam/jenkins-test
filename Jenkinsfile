@@ -1,7 +1,7 @@
 node {
 	checkout scm
 	docker.image('mariadb:10.3').withRun('-e "MYSQL_ROOT_PASSWORD=root"') { c ->
-		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
+		docker.image('mariadb:10.3').inside("--link ${c.id}:db --user root") {
 			sh 'echo "here1"'
 			sh 'pwd;ls'
 			sh 'whoami'
