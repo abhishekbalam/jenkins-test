@@ -7,7 +7,7 @@ pipeline {
                 sh 'ls'
                 sh 'pwd'
                 sh 'whoami'
-                sh 'docker run -d ubuntu:trusty -u root /bin/bash'
+                sh 'docker run -d -u root ubuntu:trusty /bin/bash'
             }
         }
         stage('Test') {
