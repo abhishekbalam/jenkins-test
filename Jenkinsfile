@@ -37,7 +37,7 @@ node {
 			sh 'ls'
 			sh 'pwd'
 			sh 'bench init frappe-bench --skip-assets --python $(which python3)'
-			sh 'mkdir frappe-bench/sites/test_site'
+			sh 'mkdir $WORKSPACE/frappe-bench/sites/test_site'
 			// sh 'cp ${WORKSPACE}/site_configs/consumer_db/mariadb.json ${WORKSPACE}/frappe-bench/sites/test_site/site_config.json'
 			sh 'mkdir frappe-bench/sites/test_site_producer'
 			// sh 'cp ${WORKSPACE}/site_configs/producer_db/mariadb.json ${WORKSPACE}/frappe-bench/sites/test_site_producer/site_config.json'
