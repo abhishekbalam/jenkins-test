@@ -36,6 +36,7 @@ RUN pip3 install coverage==4.5.4 python-coveralls
 # Locales
 ENV LC_ALL=C.UTF-8 
 ENV LANG=C.UTF-8
+ENV PATH='/home/frappe/.local/bin:$PATH'
 
 USER frappe
 
@@ -50,12 +51,12 @@ RUN wget "https://raw.githubusercontent.com/abhishekbalam/frappe/develop/.travis
 
 
 # Bench Install
-RUN git clone https://github.com/frappe/bench --depth 1 bench-repo
-RUN sudo -H pip3 install -e ./bench-repo
+# RUN git clone https://github.com/frappe/bench --depth 1 bench-repo
+# RUN sudo -H pip3 install -e ./bench-repo
 
 RUN pip3 install frappe-bench
 
-#RUN sudo cp /home/frappe/.local/bin/bench /usr/bin
+RUN sudo cp /home/frappe/.local/bin/bench /usr/bin
 
 # Bench Init
 # RUN bench init frappe-bench --skip-assets --python $(which python3) 
