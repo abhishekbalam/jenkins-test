@@ -1,9 +1,10 @@
 node {
 	// checkout scm
-	def frappe = docker.image('abhishekbalam/test1:latest')
+	def frappe = docker.image('abhishekbalam/test1:latest', '--user frappe')
 
 	//def frappe = docker.build('test-frappe')
 	frappe.inside() {
+
 		sh 'bench init frappe-bench --skip-assets --python $(which python3)'
 		sh 'mkdir ~/frappe-bench/sites/test_site'
 
@@ -13,6 +14,7 @@ node {
 
 		sh 'mysql -uroot -proot -h db -e "CREATE DATABASE test_frappe_consumer"';
 	}
+
 	docker.image('mariadb:10.3').withRun('-e MARIADB_ROOT_PASSWORD=root') { c ->
 		docker.image('mariadb:10.3').inside("--link ${c.id}:db") {
 			sh 'while ! mysqladmin ping -h0.0.0.0 --silent; do sleep 1; done'

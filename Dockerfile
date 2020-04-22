@@ -50,10 +50,12 @@ RUN wget "https://raw.githubusercontent.com/abhishekbalam/frappe/develop/.travis
 
 
 # Bench Install
-RUN git clone https://github.com/frappe/bench --depth 1
-RUN pip3 install -e ./bench
+RUN git clone https://github.com/frappe/bench --depth 1 bench-repo
+RUN sudo -H pip3 install -e ./bench-repo
 
-RUN sudo cp /home/frappe/.local/bin/bench /usr/bin
+RUN pip3 install frappe-bench
+
+#RUN sudo cp /home/frappe/.local/bin/bench /usr/bin
 
 # Bench Init
 # RUN bench init frappe-bench --skip-assets --python $(which python3) 
